@@ -54,7 +54,7 @@ class juegoCubos:
         # Comprueba si uno de los cubos ha conseguido el objetivo
         for cantidadAgua in self.aguaEnCubos.values():
             if cantidadAgua == self.objetivo:
-                print('¡Bien hecho! Lo has resuelto en', self.pasos, 'pasos!')
+                print('Bien hecho! Lo has resuelto en', self.pasos, 'pasos!')
                 sys.exit()
 
     def selecOpcion(self):
@@ -64,15 +64,16 @@ class juegoCubos:
         print('  (V)aciar un cubo')
         print('  (M)over el agua de un cubo a otro')
         print('  (B)uidar tots els poals')
+        print('  (P)lenar tots els poals')
         print('  (S)alir')
 
         while True:
             move = input('> ').upper()
             if move == 'SALIR' or move == 'S':
-                print('¡Gracias por jugar!')
+                print('Gracias por jugar!')
                 sys.exit()
 
-            if move in ('L', 'V', 'M', 'B'):
+            if move in ('L', 'V', 'M', 'P' 'B'):
                 return move
 
     def selecCubo(self, mensaje):
@@ -110,6 +111,11 @@ class juegoCubos:
             self.aguaEnCubos[cubo] = 0
         self.pasos += 1
 
+    def llenarTodosCubos(self):
+        for cubo in self.aguaEnCubos:
+            self.aguaEnCubos[cubo] = int(cubo)
+        self.pasos += 1
+
     def jugar(self):
         self.mostrarEstadoCubos()
         while True:
@@ -127,6 +133,9 @@ class juegoCubos:
             elif opcion == "B":
                 self.vaciarTodosCubos()
                 self.mostrarEstadoCubos()  # Mostrar estado después de vaciar todos los cubos
+            elif opcion == "P":
+                self.llenarTodosCubos()
+                self.mostrarEstadoCubos()  # Mostrar estado después de llenar todos los cubos
             self.mostrarEstadoCubos()
             self.checkObjetivo()
 
